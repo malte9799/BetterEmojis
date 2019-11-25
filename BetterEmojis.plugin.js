@@ -33,12 +33,12 @@ class BetterEmojis {
 		});
 
 		this.packs = Object.assign({},
-			{default:		{name:"Default",	id:"default", 	format:""}},
-			{apple:			{name:"Apple",		id:"apple", 	format:"120/apple/232"}},
-			{google:		{name:"Google",		id:"google", 	format:"120/google/223"}},
-			{samsung:		{name:"Samsung",	id:"samsung", 	format:"72/samsung/220"}},
-			{facebook:		{name:"Facebook",	id:"facebook", 	format:"120/facebook/230"}},
-			{whatsapp:		{name:"WhatsApp",	id:"whatsapp", 	format:"120/whatsapp/224"}}
+			{default:		{name:"Twitter (Default)",	id:"default", 	format:"72/twitter/233"}},
+			{apple:			{name:"Apple",				id:"apple", 	format:"120/apple/232"}},
+			{google:		{name:"Google",				id:"google", 	format:"120/google/223"}},
+			{samsung:		{name:"Samsung",			id:"samsung", 	format:"72/samsung/220"}},
+			{facebook:		{name:"Facebook",			id:"facebook", 	format:"120/facebook/230"}},
+			{whatsapp:		{name:"WhatsApp",			id:"whatsapp", 	format:"120/whatsapp/224"}}
 		);
 
         this.css = ``;
@@ -194,7 +194,6 @@ class BetterEmojis {
 	}
 
 	getEmojiPreview(pack, previewEmojis) {
-		if (pack == "default") return;
 		let wrapper = BDFDB.ReactUtils.elementToReact(BDFDB.DOMUtils.create(`<span></span>`));
 		wrapper.props.children = [];
 		for (let emoji in previewEmojis) {
