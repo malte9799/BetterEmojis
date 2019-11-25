@@ -229,7 +229,10 @@ class BetterEmojis {
 		//     ":fingers_crossed_tone2:": "hand-with-index-and-middle-fingers-crossed_emoji-modifier-fitzpatrick-type-3_1f91e-1f3fc_1f3fc"
 		// }
 
-		this.emojis = JSON.parse(fs.readFileSync('EmojiBase.json'));
+		$.getJSON('https://raw.githubusercontent.com/malte9799/BetterEmojis/master/EmojiBase.json', data => {
+		    this.emojis = data;
+			this.updateEmojis(BDFDB.DataUtils.get(this, "choices", "emojiselect"));
+		});
 
 		this.packs = Object.assign({},
 			{default:		{name:"Default",	id:"default", 	format:""}},
@@ -287,12 +290,6 @@ class BetterEmojis {
 	load () {}
 
 	start () {
-		this.inject('link', {
-	      type: 'text/json',
-	      id: 'betterEmoji-json',
-	      href: 'https://rawcdn.githack.com/nirewen/Citador/master/Citador.styles.css?v=2'
-	    });
-
 		if (!global.BDFDB) global.BDFDB = {myPlugins:{}};
 		if (global.BDFDB && global.BDFDB.myPlugins && typeof global.BDFDB.myPlugins == "object") global.BDFDB.myPlugins[this.getName()] = this;
 		var libraryScript = document.querySelector('head script#BDFDBLibraryScript');
@@ -318,8 +315,6 @@ class BetterEmojis {
 		if (global.BDFDB && typeof BDFDB === "object" && BDFDB.loaded) {
 			if (this.started) return;
 			BDFDB.PluginUtils.init(this);
-
-			this.updateEmojis(BDFDB.DataUtils.get(this, "choices", "emojiselect"));
 
 			BDFDB.ModuleUtils.forceAllUpdates(this);
 		}
@@ -376,7 +371,6 @@ class BetterEmojis {
 					options: BDFDB.ObjectUtils.toArray(BDFDB.ObjectUtils.map(this.defaults.choices[key].options, (pack, id) => {return {value:id, label:pack.name}})),
 					searchable: true,
 					optionRenderer: pack => {
-						console.log("test");
 						return BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Flex, {
 							align: BDFDB.LibraryComponents.Flex.Align.CENTER,
 							children: [
@@ -413,6 +407,7 @@ class BetterEmojis {
 
 	updateEmojis(pack) {
 		for (let emoji in this.emojis) {
+			if (emoji == "") break;
 			$(`img[alt="${emoji}"]`).attr("src", this.getEmojiUrl(pack, emoji));
 		}
 	}
