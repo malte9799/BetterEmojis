@@ -1,4 +1,5 @@
-//META{"name":"BetterEmojis"}*//
+//META{"name":"BetterEmojis","website":"https://github.com/malte9799/BetterEmojis/tree/master","source":"https://raw.githubusercontent.com/malte9799/BetterEmojis/master/BetterEmojis.plugin.js"}*//
+
 const fs = require('fs');
 var s = document.createElement("script");
 s.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js";
@@ -7,7 +8,7 @@ document.head.appendChild(s);
 class BetterEmojis {
 	getName () {return "BetterEmojis";}
 
-	getVersion () {return "0.0.1";}
+	getVersion () {return "0.1.2";}
 
 	getAuthor () {return "[MΛLTE]#2903";}
 
@@ -139,6 +140,7 @@ class BetterEmojis {
 	processMessageUsername (e) {
 		// console.log(e);
 		if (!BDFDB.DataUtils.get(this, "choices", "emojiselect") == "default") {
+			console.log("test");
 			let renderChildren = e.returnvalue.props.children;
 			e.returnvalue.props.children = (...args) => {
 				let renderedChildren = renderChildren(...args);
